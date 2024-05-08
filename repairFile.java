@@ -1,7 +1,4 @@
 import java.util.Scanner;
-import java.lang.invoke.CallSite;
-import java.util.*;
-import java.text.ParseException; 
 import java.text.SimpleDateFormat; 
 import java.util.Date; 
 import java.io.BufferedReader;
@@ -34,7 +31,8 @@ public class repairFile {
             System.out.println("What would you like to do?");
             System.out.println("1: Put in asset tag");
             System.out.println("2: Computer has a problem");
-            System.out.println("3: Exit");
+            System.out.println("3: Delete an entry");
+            System.out.println("4: Exit");
             int input = keyboard.nextInt();
             if(input == 1) {
                 initials(date);
@@ -43,6 +41,9 @@ public class repairFile {
                 problem();
             }
             else if(input == 3) {
+                deleteEntry();
+            }
+            else if(input == 4) {
                 cont = false;
             }
             else {
@@ -58,7 +59,7 @@ public class repairFile {
     //create a function that puts users name onto document 
     public static void initials(String date) {
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("What Asset Tagged Computer has been eraced");
+        System.out.println("What is the asset tag of the newly eraced computer?");
         String assetTag = keyboard.next();
     
         try
@@ -119,7 +120,7 @@ public class repairFile {
     public static void problem() {
         //ask questions to user
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("What Asset Tagged Computer has a problem");
+        System.out.println("What is the asset tag of the troubled computer?");
         String assetTag = keyboard.next();
         System.out.println("What is the problem in one word");
         String problem = keyboard.next();
@@ -179,6 +180,61 @@ public class repairFile {
         System.out.println("Asset Tag does not exist");
         System.out.println("");
         return false;
+    }
+
+    //create a delete entry variable
+    public static void deleteEntry() {
+        //ask questions to user
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("What entry would you like to delete?");
+        String assetTag = keyboard.next();
+        
+        try
+        {
+            //create variables
+            List<List<String>> data = new ArrayList<>();
+            String file = "20232024Recycle List.csv";
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+
+            //used buffered reader to read in the data and delete the entry the user does not want
+            String line = br.readLine();
+            while(line != null) {
+                String[] lineArray = line.split(",");
+                List<String> lineData = new ArrayList<>(Arrays.asList(lineArray));
+                if(lineData.get(0).equals(assetTag)) {
+                    if(lineData.size() >=4) {
+                        lineData.remove(3);
+                        lineData.remove(2);
+                    }
+                    else {
+                        lineData.remove(2);
+                    }
+                }
+                data.add(lineData);
+                line = br.readLine();
+            }
+            br.close();
+            if(!checkAssetTag(assetTag, data)) {
+                return;
+            }
+            //write back to file with correct chanfes
+            BufferedWriter write = new BufferedWriter(new FileWriter(file));
+            for(List<String> list: data) {
+                write.write(String.join(",", list));
+                write.newLine();
+            }
+            //update user
+            write.close();
+            System.out.println("");
+            System.out.println("Problem is updated!");
+            System.out.println("");
+        }
+        catch(Exception e)
+        {
+            System.out.print(e);
+        }
+
     }
 
 }
