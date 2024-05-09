@@ -25,6 +25,7 @@ public class repairFile {
         String date = ft.format(new Date());
 
         date = date + " " + initials;
+        int input = 10;
 
         //create while loop to check what the user wants to do and then complete that task
         while(cont) {
@@ -33,7 +34,7 @@ public class repairFile {
             System.out.println("2: Computer has a problem");
             System.out.println("3: Delete an entry");
             System.out.println("4: Exit");
-            int input = keyboard.nextInt();
+            input = keyboard.nextInt();
             if(input == 1) {
                 initials(date);
             }
@@ -51,15 +52,13 @@ public class repairFile {
             }
 
         }
-
-        
-
+        keyboard.close();
     }
 
     //create a function that puts users name onto document 
     public static void initials(String date) {
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("What is the asset tag of the newly eraced computer?");
+        System.out.println("What is the asset tag of the newly erased computer?");
         String assetTag = keyboard.next();
     
         try
@@ -107,8 +106,6 @@ public class repairFile {
             System.out.println("");
             System.out.println("Name and Date are Updated!");
             System.out.println("");
-            
-
        }
         catch(Exception e)
         {
@@ -236,5 +233,6 @@ public class repairFile {
         }
 
     }
+    
 
 }
