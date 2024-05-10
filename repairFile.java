@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat; 
 import java.util.Date; 
 import java.io.BufferedReader;
@@ -33,18 +34,22 @@ public class repairFile {
             System.out.println("1: Put in asset tag");
             System.out.println("2: Computer has a problem");
             System.out.println("3: Delete an entry");
-            System.out.println("4: Exit");
+            System.out.println("4: Check Progress!");
+            System.out.println("5: Exit");
             input = keyboard.nextInt();
             if(input == 1) {
-                initials(date);
+                addInitials(date, keyboard);
             }
             else if(input == 2) {
-                problem();
+                problem(keyboard);
             }
             else if(input == 3) {
-                deleteEntry();
+                deleteEntry(keyboard);
             }
             else if(input == 4) {
+                checkProgress();
+            }
+            else if(input == 5) {
                 cont = false;
             }
             else {
@@ -56,8 +61,7 @@ public class repairFile {
     }
 
     //create a function that puts users name onto document 
-    public static void initials(String date) {
-        Scanner keyboard = new Scanner(System.in);
+    public static void addInitials(String date, Scanner keyboard) {
         System.out.println("What is the asset tag of the newly erased computer?");
         String assetTag = keyboard.next();
     
@@ -114,9 +118,8 @@ public class repairFile {
     }
 
     //create functiont hat checks to add a reason why the computer could not be erased
-    public static void problem() {
+    public static void problem(Scanner keyboard) {
         //ask questions to user
-        Scanner keyboard = new Scanner(System.in);
         System.out.println("What is the asset tag of the troubled computer?");
         String assetTag = keyboard.next();
         System.out.println("What is the problem in one word");
@@ -180,9 +183,8 @@ public class repairFile {
     }
 
     //create a delete entry variable
-    public static void deleteEntry() {
+    public static void deleteEntry(Scanner keyboard) {
         //ask questions to user
-        Scanner keyboard = new Scanner(System.in);
         System.out.println("What entry would you like to delete?");
         String assetTag = keyboard.next();
         
@@ -225,6 +227,47 @@ public class repairFile {
             write.close();
             System.out.println("");
             System.out.println("Problem is updated!");
+            System.out.println("");
+        }
+        catch(Exception e)
+        {
+            System.out.print(e);
+        }
+
+    }
+
+    //check progress function
+    public static void checkProgress() {  
+        int finished = -1;
+        try
+        {
+            //create variables
+            List<List<String>> data = new ArrayList<>();
+            String file = "20232024Recycle List.csv";
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+
+            //used buffered reader to read in the data and delete the entry the user does not want
+            String line = br.readLine();
+            while(line != null) {
+                String[] lineArray = line.split(",");
+                List<String> lineData = new ArrayList<>(Arrays.asList(lineArray));
+                //if the line has more than 2 entries then that means it has been completed
+                if(lineData.size() >= 3) {
+                    finished++;
+                }
+                data.add(lineData);
+                line = br.readLine();
+            }
+            br.close();
+
+            //create a double to get the number in a percent 
+            double finishedPercent = ((double)finished/(double)data.size()) * 100.0;
+
+            //update user with new format
+             DecimalFormat df = new DecimalFormat("###.#");
+            System.out.println("");
+            System.out.println("You are " + df.format(finishedPercent) + "% of the way done! Keep up the good work!");
             System.out.println("");
         }
         catch(Exception e)
