@@ -296,10 +296,12 @@ public class repairFile {
             System.out.println("");
             return;
         }
+        System.out.println("");
         System.out.println("Here are your last 5 entries into the csv file:");
         for(String tag: lastFive) {
             System.out.println(tag);
         }
+        System.out.println("");
     }
     
 
