@@ -290,6 +290,10 @@ public class repairFile {
 
 
     public static void lastFiveEntries(ArrayList<String> lastFive) {
+        if(lastFive.size() == 0) {
+            System.out.println("You have no entries added in this session!");
+            return;
+        }
         System.out.println("Here are your last 5 entries into the csv file:");
         for(String tag: lastFive) {
             System.out.println(tag);
