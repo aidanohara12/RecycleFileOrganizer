@@ -27,7 +27,7 @@ public class repairFile {
 
         date = date + " " + initials;
         int input = 10;
-
+        ArrayList<String> lastFive = new ArrayList<>();
         //create while loop to check what the user wants to do and then complete that task
         while(cont) {
             System.out.println("What would you like to do?");
@@ -35,10 +35,11 @@ public class repairFile {
             System.out.println("2: Computer has a problem");
             System.out.println("3: Delete an entry");
             System.out.println("4: Check Progress!");
-            System.out.println("5: Exit");
+            System.out.println("5: Get last 5 entries added");
+            System.out.println("6: Exit");
             input = keyboard.nextInt();
             if(input == 1) {
-                addInitials(date, keyboard);
+                addInitials(date, keyboard, lastFive);
             }
             else if(input == 2) {
                 problem(keyboard);
@@ -50,6 +51,9 @@ public class repairFile {
                 checkProgress();
             }
             else if(input == 5) {
+                lastFiveEntries(lastFive);
+            }
+            else if(input == 6) {
                 cont = false;
             }
             else {
@@ -61,7 +65,7 @@ public class repairFile {
     }
 
     //create a function that puts users name onto document 
-    public static void addInitials(String date, Scanner keyboard) {
+    public static void addInitials(String date, Scanner keyboard, ArrayList<String> lastFive) {
         System.out.println("What is the asset tag of the newly erased computer?");
         String assetTag = keyboard.next();
     
@@ -87,6 +91,13 @@ public class repairFile {
                     }
                     else {
                         lineData.add(date);
+                        if(lastFive.size() >= 5) {
+                            lastFive.remove(4);
+                            lastFive.add(assetTag);
+                        }
+                        else {
+                            lastFive.add(assetTag);
+                        }
                     }
                 }
                 data.add(lineData);
@@ -275,6 +286,14 @@ public class repairFile {
             System.out.print(e);
         }
 
+    }
+
+
+    public static void lastFiveEntries(ArrayList<String> lastFive) {
+        System.out.println("Here are your last 5 entries into the csv file:");
+        for(String tag: lastFive) {
+            System.out.println(tag);
+        }
     }
     
 
