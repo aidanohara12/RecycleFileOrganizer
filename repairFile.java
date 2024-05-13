@@ -92,7 +92,7 @@ public class repairFile {
                     else {
                         lineData.add(date);
                         if(lastFive.size() >= 5) {
-                            lastFive.remove(4);
+                            lastFive.remove(0);
                             lastFive.add(assetTag);
                         }
                         else {
