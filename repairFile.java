@@ -36,7 +36,8 @@ public class repairFile {
             System.out.println("3: Delete an entry");
             System.out.println("4: Check Progress!");
             System.out.println("5: Get last 5 entries added");
-            System.out.println("6: Exit");
+            System.out.println("6: See how many you did today!");
+            System.out.println("7: Exit");
             input = keyboard.nextInt();
             if(input == 1) {
                 addInitials(date, keyboard, lastFive);
@@ -54,6 +55,9 @@ public class repairFile {
                 lastFiveEntries(lastFive);
             }
             else if(input == 6) {
+                progressToday();
+            }
+            else if(input == 7) {
                 cont = false;
             }
             else {
@@ -411,11 +415,39 @@ public class repairFile {
             {
                 System.out.print(e);
             }
+        }  
+    }
+
+    public static void progressToday() {
+        SimpleDateFormat ft 
+        = new SimpleDateFormat("MM-dd-yyyy"); 
+
+        String date = ft.format(new Date());
+
+        try {
+            //create variables
+            String file = "progress.csv";
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+
+            //used buffered reader to read in the data and delete the entry the user does not want
+            String line = br.readLine();
+            while(line != null) {
+                String[] lineArray = line.split(",");
+                List<String> lineData = new ArrayList<>(Arrays.asList(lineArray));
+                //print out how many done today
+                if(lineData.get(0).equals(date)) {
+                    System.out.println("You have done " + lineData.get(1) + " computers today!");
+                }
+                line = br.readLine();
+            }
+            br.close();
         }
-
-        
-
-       
+    catch(Exception e)
+    {
+        System.out.print(e);
+    }
+    
     }
     
 
