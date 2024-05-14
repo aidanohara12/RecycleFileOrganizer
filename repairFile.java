@@ -84,6 +84,7 @@ public class repairFile {
                 String[] lineArray = line.split(",");
                 List<String> lineData = new ArrayList<>(Arrays.asList(lineArray));
                 if(lineData.get(0).equals(assetTag)) {
+                    inputProgress(false);
                     if(lineData.size() >= 3) {
                         System.out.println("This asset tag has already been added");
                         System.out.println(" ");
@@ -151,6 +152,7 @@ public class repairFile {
                 if(lineData.get(0).equals(assetTag)) {
                     lineData.add("xxx");
                     lineData.add(problem);
+                    inputProgress(false);
                 }
                 data.add(lineData);
                 line = br.readLine();
@@ -213,6 +215,7 @@ public class repairFile {
                 String[] lineArray = line.split(",");
                 List<String> lineData = new ArrayList<>(Arrays.asList(lineArray));
                 if(lineData.get(0).equals(assetTag)) {
+                    inputProgress(true);
                     if(lineData.size() >=4) {
                         lineData.remove(3);
                         lineData.remove(2);
@@ -302,6 +305,117 @@ public class repairFile {
             System.out.println(tag);
         }
         System.out.println("");
+    }
+
+    public static void inputProgress(boolean delete) {
+        SimpleDateFormat ft 
+        = new SimpleDateFormat("MM-dd-yyyy"); 
+
+        String date = ft.format(new Date());
+
+        if(!delete) {
+            try{
+                String file = "progress.csv";
+                List<List<String>> data = new ArrayList<>();
+                FileReader fr = new FileReader(file);
+                BufferedReader br = new BufferedReader(fr);
+                int added = 0;
+        
+                //used buffered reader to read in the data and delete the entry the user does not want
+                String line = br.readLine();
+                while(line != null) {
+                    String[] lineArray = line.split(",");
+                    List<String> lineData = new ArrayList<>(Arrays.asList(lineArray));
+                    if(lineData.size() > 0) {
+                        if(lineData.get(0).equals(date)) {
+                            added++;
+                            int count = Integer.parseInt(lineData.get(1));
+                            count++;
+                            lineData.set(1, Integer.toString(count));
+                            data.add(lineData);
+                            break;
+                        }
+                    }
+                    data.add(lineData);
+                    line = br.readLine();
+                }
+                if(added == 0) {
+                    List<String> lineData = new ArrayList<>(2);
+                    lineData.add(date);
+                    lineData.add("1");
+                    data.add(lineData);
+                }
+                br.close();
+        
+        
+        
+        
+                //write back to file with correct chanfes
+                BufferedWriter write = new BufferedWriter(new FileWriter(file));
+                for(List<String> list: data) {
+                    write.write(String.join(",", list));
+                    write.newLine();
+                }
+                //update user
+                write.close();
+            }
+            catch(Exception e)
+            {
+                System.out.print(e);
+            }
+        }
+        else if(delete) {
+            try{
+                String file = "progress.csv";
+                List<List<String>> data = new ArrayList<>();
+                FileReader fr = new FileReader(file);
+                BufferedReader br = new BufferedReader(fr);
+                int added = 0;
+        
+                //used buffered reader to read in the data and delete the entry the user does not want
+                String line = br.readLine();
+                while(line != null) {
+                    String[] lineArray = line.split(",");
+                    List<String> lineData = new ArrayList<>(Arrays.asList(lineArray));
+                    if(lineData.size() > 0) {
+                        if(lineData.get(0).equals(date)) {
+                            added++;
+                            int count = Integer.parseInt(lineData.get(1));
+                            if(count == 0) {
+                                break;
+                            }
+                            count--;
+                            lineData.set(1, Integer.toString(count));
+                            data.add(lineData);
+                            break;
+                        }
+                    }
+                    data.add(lineData);
+                    line = br.readLine();
+                }
+                br.close();
+        
+        
+        
+        
+                //write back to file with correct chanfes
+                BufferedWriter write = new BufferedWriter(new FileWriter(file));
+                for(List<String> list: data) {
+                    write.write(String.join(",", list));
+                    write.newLine();
+                }
+                //update user
+                write.close();
+            }
+            catch(Exception e)
+            {
+                System.out.print(e);
+            }
+        }
+
+        
+
+       
     }
     
 
