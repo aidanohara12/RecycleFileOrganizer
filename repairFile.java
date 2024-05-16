@@ -49,7 +49,7 @@ public class repairFile {
                 deleteEntry(keyboard);
             }
             else if(input == 4) {
-                checkProgress();
+                checkProgress(false);
             }
             else if(input == 5) {
                 lastFiveEntries(lastFive);
@@ -123,6 +123,7 @@ public class repairFile {
             }
             //close writer and then alert the user that it has been updated
             write.close();
+            checkProgress(true);
             System.out.println("");
             System.out.println("Name and Date are Updated!");
             System.out.println("");
@@ -173,6 +174,7 @@ public class repairFile {
             }
             //update user
             write.close();
+            checkProgress(true);
             System.out.println("");
             System.out.println("Problem is updated!");
             System.out.println("");
@@ -255,7 +257,7 @@ public class repairFile {
     }
 
     //check progress function
-    public static void checkProgress() {  
+    public static void checkProgress(boolean check) {  
         int finished = -1;
         try
         {
@@ -282,11 +284,66 @@ public class repairFile {
             //create a double to get the number in a percent 
             double finishedPercent = ((double)finished/(double)data.size()) * 100.0;
 
+            if(check) {
+                if(finishedPercent >= 34.8 && finishedPercent <= 35.2) {
+                    System.out.println("");
+                    System.out.println("35% of the way done woooooooooooooo");
+                    System.out.println("");
+                }
+                else if(finishedPercent >= 39.8 && finishedPercent <= 40.3) {
+                    System.out.println("");
+                    System.out.println("40% of the way done woooooooooooooo");
+                    System.out.println("");
+                }
+                else if(finishedPercent >= 49.8 && finishedPercent <= 50.2) {
+                    System.out.println("");
+                    System.out.println("50% of the way done woooooooooooooo");
+                    System.out.println("");
+                    int count = 0;
+                    while(count < 50) {
+                        System.out.println("WOOOOOOO");
+                        count++;
+                    }
+                }
+                else if(finishedPercent >= 59.8 && finishedPercent <= 60.2) {
+                    System.out.println("");
+                    System.out.println("60% of the way done woooooooooooooo");
+                    System.out.println("");
+                }
+                else if(finishedPercent >= 69.8 && finishedPercent <= 70.2) {
+                    System.out.println("");
+                    System.out.println("70% of the way done woooooooooooooo");
+                    System.out.println("");
+                }
+                else if(finishedPercent >= 79.8 && finishedPercent <= 80.2) {
+                    System.out.println("");
+                    System.out.println("80% of the way done woooooooooooooo");
+                    System.out.println("");
+                }
+                else if(finishedPercent >= 89.8 && finishedPercent <= 90.2) {
+                    System.out.println("");
+                    System.out.println("90% of the way done woooooooooooooo");
+                    System.out.println("");
+                }
+                else if(finishedPercent >= 99.8 && finishedPercent <= 100.2) {
+                    System.out.println("");
+                    System.out.println("YOU ARE DONE YOU LEGEND LETS GOOOOOOOO");
+                    System.out.println("");
+                    int count = 0;
+                    while(count < 100) {
+                        System.out.println("WOOOOOOO");
+                        count++;
+                    }
+                }
+            }
+
+            if(!check) {
             //update user with new format
              DecimalFormat df = new DecimalFormat("###.#");
-            System.out.println("");
-            System.out.println("You are " + df.format(finishedPercent) + "% of the way done! Keep up the good work!");
-            System.out.println("");
+             System.out.println("");
+             System.out.println("You are " + df.format(finishedPercent) + "% of the way done! Keep up the good work!");
+             System.out.println("");
+            }
         }
         catch(Exception e)
         {
@@ -295,7 +352,7 @@ public class repairFile {
 
     }
 
-
+    //get the last five added entries and print them out
     public static void lastFiveEntries(ArrayList<String> lastFive) {
         if(lastFive.size() == 0) {
             System.out.println("");
@@ -311,6 +368,7 @@ public class repairFile {
         System.out.println("");
     }
 
+    //add to a seperate spreadsheet about how many entries were added that day
     public static void inputProgress(boolean delete) {
         SimpleDateFormat ft 
         = new SimpleDateFormat("MM-dd-yyyy"); 
@@ -398,10 +456,6 @@ public class repairFile {
                     line = br.readLine();
                 }
                 br.close();
-        
-        
-        
-        
                 //write back to file with correct chanfes
                 BufferedWriter write = new BufferedWriter(new FileWriter(file));
                 for(List<String> list: data) {
@@ -418,12 +472,10 @@ public class repairFile {
         }  
     }
 
+    //print out however many entries are added today
     public static void progressToday() {
-        SimpleDateFormat ft 
-        = new SimpleDateFormat("MM-dd-yyyy"); 
-
+        SimpleDateFormat ft = new SimpleDateFormat("MM-dd-yyyy"); 
         String date = ft.format(new Date());
-
         try {
             //create variables
             String file = "progress.csv";
@@ -437,7 +489,9 @@ public class repairFile {
                 List<String> lineData = new ArrayList<>(Arrays.asList(lineArray));
                 //print out how many done today
                 if(lineData.get(0).equals(date)) {
+                    System.out.println("");
                     System.out.println("You have done " + lineData.get(1) + " computers today!");
+                    System.out.println("");
                 }
                 line = br.readLine();
             }
@@ -449,6 +503,4 @@ public class repairFile {
     }
     
     }
-    
-
 }
