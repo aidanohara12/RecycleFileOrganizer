@@ -73,7 +73,7 @@ public class intuneCompare {
         try {
             //create variables 
             List<List<String> > data = new ArrayList<>();
-            String file = "IntuneDeviceData.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/IntuneDeviceData.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
@@ -108,7 +108,7 @@ public class intuneCompare {
         try {
             //create variables 
             List<List<String> > data = new ArrayList<>();
-            String file = "20232024Recycle List.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/20232024Recycle List.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
@@ -137,7 +137,7 @@ public class intuneCompare {
         try {
             //create variables 
             List<List<String> > data = new ArrayList<>();
-            String file = "IntuneDeviceData.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/IntuneDeviceData.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
@@ -170,7 +170,7 @@ public class intuneCompare {
         try {
             //create variables 
             List<List<String> > data = new ArrayList<>();
-            String file = "20232024Recycle List.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/20232024Recycle List.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
@@ -203,7 +203,7 @@ public class intuneCompare {
         try {
             //create variables 
             List<List<String> > data = new ArrayList<>();
-            String file = "Class2024.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/Class2024.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
@@ -231,7 +231,7 @@ public class intuneCompare {
         try {
             //create variables 
             List<List<String> > data = new ArrayList<>();
-            String file = "Class2025.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/Class2025.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
@@ -259,7 +259,7 @@ public class intuneCompare {
         try {
             //create variables 
             List<List<String> > data = new ArrayList<>();
-            String file = "Class2026.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/Class2026.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
@@ -287,7 +287,7 @@ public class intuneCompare {
         try {
             //create variables 
             List<List<String> > data = new ArrayList<>();
-            String file = "Class2027.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/Class2027.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 

@@ -82,7 +82,7 @@ public class repairFile {
         {
             //create variables 
             List<List<String> > data = new ArrayList<>();
-            String file = "20232024Recycle List.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/20232024Recycle List.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
@@ -158,7 +158,7 @@ public class repairFile {
         {
             //create variables
             List<List<String>> data = new ArrayList<>();
-            String file = "20232024Recycle List.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/20232024Recycle List.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
@@ -224,7 +224,7 @@ public class repairFile {
         {
             //create variables
             List<List<String>> data = new ArrayList<>();
-            String file = "20232024Recycle List.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/20232024Recycle List.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
@@ -276,7 +276,7 @@ public class repairFile {
         {
             //create variables
             List<List<String>> data = new ArrayList<>();
-            String file = "20232024Recycle List.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/20232024Recycle List.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
@@ -393,7 +393,7 @@ public class repairFile {
 
         if(!delete) {
             try{
-                String file = "progress.csv";
+                String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/progress.csv";
                 List<List<String>> data = new ArrayList<>();
                 FileReader fr = new FileReader(file);
                 BufferedReader br = new BufferedReader(fr);
@@ -444,7 +444,7 @@ public class repairFile {
         }
         else if(delete) {
             try{
-                String file = "progress.csv";
+                String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/progress.csv";
                 List<List<String>> data = new ArrayList<>();
                 FileReader fr = new FileReader(file);
                 BufferedReader br = new BufferedReader(fr);
@@ -493,7 +493,7 @@ public class repairFile {
         String date = ft.format(new Date());
         try {
             //create variables
-            String file = "progress.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/progress.csv";
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
@@ -523,7 +523,7 @@ public class repairFile {
 
     public static void addComputerToSpread(String date, Scanner keyboard) {
         try{
-            String file = "20232024Recycle List.csv";
+            String file = "/Users/aohara/Desktop/GitHub/RecycleFileOrganizer/Spreadsheets/20232024Recycle List.csv";
             List<List<String>> data = new ArrayList<>();
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
