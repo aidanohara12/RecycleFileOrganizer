@@ -10,14 +10,19 @@ import java.util.Map;
 public class intuneCompare {
     public static void main(String args[]) {
        
+        //asset tags with coresponding emails
         Map<String, String> intuneMap = new HashMap<>();
+        //asset tags with corresponding compliance data
         Map<String, String> complianceMap = new HashMap<>();
-        Map<String, String> serialIntune = new HashMap<>();
+        //serial numbers with coresponding emails
+        Map<String, String> serialEmail = new HashMap<>();
+        //serial numbers with corresponding compliance data
         Map<String, String> serialComp = new HashMap<>();
 
         System.out.println("Here is the computers that are needed to be retired: ");
         System.out.println();
-      
+
+      //go through all of the data in intune and check to see if each one is related to the recycle spreadsheet
         for(String tag: readIntuneData(intuneMap, complianceMap)) {
             if(readRecylceData().contains(tag)) {
                 String quote = "NCHS" + tag + ", Email: " + intuneMap.get(tag) + ", Compliance: " + complianceMap.get(tag);
@@ -39,20 +44,20 @@ public class intuneCompare {
                 System.out.println(" ");
             }
         }
-
-        for(String serial: readIntuneSerial(serialIntune, serialComp)) {
+      //go through all of the data in intune and check to see if each one is related to the recycle spreadsheet
+        for(String serial: readIntuneSerial(serialEmail, serialComp)) {
             if(readDataSerial().contains(serial)) {
-                String quote = "NCHS" + serial + ", Email: " + serialIntune.get(serial) + ", Compliance: " + serialComp.get(serial);
-                if(Data2024().contains(intuneMap.get(serial))) {
+                String quote = "NCHS" + serial + ", Email: " + serialEmail.get(serial) + ", Compliance: " + serialComp.get(serial);
+                if(Data2024().contains(serialEmail.get(serial))) {
                     System.out.println(quote + ".  This is class of 2024 computer.");
                 }
-                else if(Data2025().contains(intuneMap.get(serial))) {
+                else if(Data2025().contains(serialEmail.get(serial))) {
                     System.out.println(quote + ".  This is class of 2025 computer.");
                 }
-                else if(Data2026().contains(intuneMap.get(serial))) {
+                else if(Data2026().contains(serialEmail.get(serial))) {
                     System.out.println(quote + ".  This is class of 2026 computer.");
                 }
-                else if(Data2027().contains(intuneMap.get(serial))) {               
+                else if(Data2027().contains(serialEmail.get(serial))) {               
                     System.out.println(quote + ".  This is class of 2027 computer.");
                 }
                 else {
@@ -127,7 +132,7 @@ public class intuneCompare {
         return assetTags;
     }
 
-    public static ArrayList<String> readIntuneSerial(Map<String, String> serialIntune,Map<String, String> serialComp ) {
+    public static ArrayList<String> readIntuneSerial(Map<String, String> serialEmail,Map<String, String> serialComp ) {
         ArrayList<String> serialNumbers = new ArrayList<>();
         try {
             //create variables 
@@ -143,7 +148,7 @@ public class intuneCompare {
                 List<String> lineData = new ArrayList<>(Arrays.asList(lineArray));
                 if(lineData.size() > 9) {
                     serialNumbers.add(lineData.get(10));
-                    serialIntune.put(lineData.get(10), lineData.get(5));
+                    serialEmail.put(lineData.get(10), lineData.get(5));
                     serialComp.put(lineData.get(10), lineData.get(3));
                 }
                 data.add(lineData);
@@ -159,6 +164,7 @@ public class intuneCompare {
         return serialNumbers;
     }
 
+    
     public static ArrayList<String> readDataSerial() {
         ArrayList<String> serialNumbers = new ArrayList<>();
         try {
@@ -191,6 +197,7 @@ public class intuneCompare {
         return serialNumbers;
     }
 
+    //read in all of the class data
     public static ArrayList<String> Data2024() {
         ArrayList<String> assetTags = new ArrayList<>();
         try {
