@@ -13,6 +13,7 @@ import java.util.Arrays;
 public class repairFile {
    
     public static void main(String args[]) { 
+
         boolean cont = true;
         //first get the initials of the user
         Scanner keyboard = new Scanner(System.in);
@@ -37,7 +38,8 @@ public class repairFile {
             System.out.println("4: Check Progress!");
             System.out.println("5: Get last 5 entries added");
             System.out.println("6: See how many you did today!");
-            System.out.println("7: Exit");
+            System.out.println("7: Add a computer to the Spreadsheet");
+            System.out.println("8: Exit");
             input = keyboard.nextInt();
             if(input == 1) {
                 addInitials(date, keyboard, lastFive);
@@ -58,6 +60,9 @@ public class repairFile {
                 progressToday();
             }
             else if(input == 7) {
+                addComputerToSpread(date, keyboard);;
+            }
+            else if(input == 8) {
                 cont = false;
             }
             else {
@@ -108,12 +113,12 @@ public class repairFile {
                 data.add(lineData);
                 line = br.readLine();
             }
-            br.close();
 
             //check to see if asset tag given exists
             if(!checkAssetTag(assetTag, data)) {
                 return;
             }
+            br.close();
 
             //write back to the file with the changes
             BufferedWriter write = new BufferedWriter(new FileWriter(file));
@@ -139,8 +144,16 @@ public class repairFile {
         //ask questions to user
         System.out.println("What is the asset tag of the troubled computer?");
         String assetTag = keyboard.next();
-        System.out.println("What is the problem in one word");
-        String problem = keyboard.next();
+        System.out.println("What is the problem? Type exit when finished");
+        String problem = "";
+        while(keyboard.hasNext()) {
+            String input = keyboard.next();
+            if(input.equals("exit")) {
+                break;
+            }
+            problem = problem + " " + input;
+        }
+       
         try
         {
             //create variables
@@ -301,6 +314,7 @@ public class repairFile {
                     System.out.println("");
                     int count = 0;
                     while(count < 50) {
+                        
                         System.out.println("WOOOOOOO");
                         count++;
                     }
@@ -332,6 +346,8 @@ public class repairFile {
                     int count = 0;
                     while(count < 100) {
                         System.out.println("WOOOOOOO");
+                        String wait = "";
+                        wait.wait();
                         count++;
                     }
                 }
@@ -361,7 +377,7 @@ public class repairFile {
             return;
         }
         System.out.println("");
-        System.out.println("Here are your last 5 entries into the csv file:");
+        System.out.println("Here are your last entries into the csv file:");
         for(String tag: lastFive) {
             System.out.println(tag);
         }
@@ -432,7 +448,7 @@ public class repairFile {
                 List<List<String>> data = new ArrayList<>();
                 FileReader fr = new FileReader(file);
                 BufferedReader br = new BufferedReader(fr);
-                int added = 0;
+             
         
                 //used buffered reader to read in the data and delete the entry the user does not want
                 String line = br.readLine();
@@ -441,7 +457,6 @@ public class repairFile {
                     List<String> lineData = new ArrayList<>(Arrays.asList(lineArray));
                     if(lineData.size() > 0) {
                         if(lineData.get(0).equals(date)) {
-                            added++;
                             int count = Integer.parseInt(lineData.get(1));
                             if(count == 0) {
                                 break;
@@ -502,5 +517,85 @@ public class repairFile {
         System.out.print(e);
     }
     
+    }
+
+
+
+    public static void addComputerToSpread(String date, Scanner keyboard) {
+        try{
+            String file = "20232024Recycle List.csv";
+            List<List<String>> data = new ArrayList<>();
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            List<String> types = new ArrayList<>();
+
+            List<String> newComputer = new ArrayList<>();
+            System.out.println("What is the asset tag of the computer?");
+            String assetTag = keyboard.next();
+            newComputer.add(assetTag);
+         
+    
+            //used buffered reader to read in the data and delete the entry the user does not want
+            String line = br.readLine();
+            while(line != null) {
+                String[] lineArray = line.split(",");
+                List<String> lineData = new ArrayList<>(Arrays.asList(lineArray));
+                if(!types.contains(lineData.get(1))) {
+                    types.add(lineData.get(1));
+                }
+                if(lineData.get(0).equals(assetTag)) {
+                    System.out.println("");
+                    System.out.println("That computer has already been added");
+                    System.out.println("");
+                    return;
+                }
+                data.add(lineData);
+                line = br.readLine();
+            }
+            types.remove(0);
+            System.out.println("What is type of computer?");
+            int count = 0;
+            for(String type: types) {
+                System.out.println(count + ": " + type);
+                count++;
+            }
+            newComputer.add(types.get(keyboard.nextInt()));
+            System.out.println("Does the computer have any issues: yes or no");
+            if(keyboard.next().equals("yes")) {
+                newComputer.add("xxx");
+                System.out.println("What is the problem? Type exit when finished");
+                String problem = "";
+                while(keyboard.hasNext()) {
+                    String input = keyboard.next();
+                    if(input.equals("exit")) {
+                        break;
+                    }
+                    problem = problem + " " + input;
+                    
+            }
+            newComputer.add(problem);
+
+            }
+            else {
+                newComputer.add(date);
+            }
+        
+            data.add(newComputer);
+            inputProgress(false);
+            br.close();
+            //write back to file with correct chanfes
+            BufferedWriter write = new BufferedWriter(new FileWriter(file));
+            for(List<String> list: data) {
+                write.write(String.join(",", list));
+                write.newLine();
+            }
+            //update user
+            write.close();
+        }
+        catch(Exception e)
+        {
+            System.out.print(e);
+        }
+
     }
 }
